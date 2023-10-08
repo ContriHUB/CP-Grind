@@ -38,11 +38,56 @@ func Signup(c *fiber.Ctx) error {
 	email := c.FormValue("email")
 	pass := c.FormValue("password")
 	cpass := c.FormValue("cpassword")
+
+    // Check if any field is empty
+	  if fname == "" || lname == "" || username == "" || email == "" || pass == "" || cpass == "" {
+        return c.Render("home/login", fiber.Map{
+            "Message": "Please fill all the fields!",
+        })
+    }
+  //check the length of password
+	  if len(pass) < 8 {
+        return c.Render("home/login", fiber.Map{
+            "Message": "Password must be at least 8 characters long!",
+        })
+    }
+
+	 // Check email format 
+    emailRegex := regexp.MustCompile(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`)
+    if !emailRegex.MatchString(email) {
+        return c.Render("home/login", fiber.Map{
+            "Message": "Invalid email address format!",
+        })
+    }
+    
+	  // Check password strength
+    passwordStrength, improvementTips := getPasswordStrength(pass)
+
+    if passwordStrength == "very weak" {
+        return c.Render("home/login", fiber.Map{
+            "Message": "Password is very weak. " + improvementTips,
+        })
+    } else if passwordStrength == "weak" {
+        return c.Render("home/login", fiber.Map{
+            "Message": "Password is weak. " + improvementTips,
+        })
+    } else if passwordStrength == "strong" {
+        return c.Render("home/login", fiber.Map{
+            "Message": "Password is strong. " + improvementTips,
+        })
+    } else if passwordStrength == "very strong" {
+        return c.Render("home/login", fiber.Map{
+            "Message": "Password is very strong. " + improvementTips,
+        })
+    }
+
+	// Check if password and confirm password match
 	if pass != cpass {
 		return c.Render("home/login", fiber.Map{
 			"Message": "Password didn't match!",
 		})
 	}
+
 	user := models.User{
 		FirstName:  fname,
 		SecondName: lname,
@@ -59,6 +104,51 @@ func Signup(c *fiber.Ctx) error {
 	return c.Render("home/login", fiber.Map{
 		"Message": "Your account has been created successfully, Login to Continue!",
 	})
+}
+
+func getPasswordStrength(password string) (string, string) {
+    lengthRegex := regexp.MustCompile(`^.{8,}$`)
+    uppercaseRegex := regexp.MustCompile(`[A-Z]`)
+    lowercaseRegex := regexp.MustCompile(`[a-z]`)
+    digitRegex := regexp.MustCompile(`[0-9]`)
+    specialCharRegex := regexp.MustCompile(`[^a-zA-Z0-9]`)
+
+    // Check each criteria and stored the feedback
+    feedback := []string{}
+
+    if !lengthRegex.MatchString(password) {
+        feedback = append(feedback, "Password should be at least 8 characters.")
+    }
+
+    if !uppercaseRegex.MatchString(password) {
+        feedback = append(feedback, "It should contain at least one uppercase letter.")
+    }
+
+    if !lowercaseRegex.MatchString(password) {
+        feedback = append(feedback, "It should contain at least one lowercase letter.")
+    }
+
+    if !digitRegex.MatchString(password) {
+        feedback = append(feedback, "It should contain at least one digit.")
+    }
+
+    if !specialCharRegex.MatchString(password) {
+        feedback = append(feedback, "It should contain at least one special character.")
+    }
+
+    // Determined password strength based on the number of criteria met
+    strength := ""
+    if len(feedback) == 0 {
+        strength = "very strong"
+    } else if len(feedback) <= 1 {
+        strength = "strong"
+    } else if len(feedback) <= 3 {
+        strength = "weak"
+    } else {
+        strength = "very weak"
+    }
+
+    return strength, strings.Join(feedback, " ")
 }
 
 func Login(c *fiber.Ctx) error {
