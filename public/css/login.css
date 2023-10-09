@@ -78,3 +78,30 @@ h1{
     color: #ffffff;
     text-shadow: 2px 7px 5px rgba(0,0,0,0.3), 0px -4px 10px rgba(255,255,255,0.3);
 }
+
+/* Password strength meter styles */
+#password-strength-meter {
+    height: 5px;
+    transition: width 0.3s ease-in-out; 
+}
+
+/* Password strength meter colors */
+#password-strength-meter[data-score="1"] {
+    background-color: red;
+}
+
+#password-strength-meter[data-score="2"] {
+    background-color: orange;
+}
+
+#password-strength-meter[data-score="3"] {
+    background-color: yellow;
+}
+
+#password-strength-meter[data-score="4"] {
+    background-color: green;
+}
+
+#password-strength-meter[data-score="5"] {
+    background-color: darkgreen;
+}
