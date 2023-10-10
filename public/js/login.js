@@ -4,6 +4,7 @@ const showPasswordButton = document.getElementById("show-password");
 const hidePasswordButton = document.getElementById("hide-password");
 const showCPasswordButton = document.getElementById("show-cpassword");
 const hideCPasswordButton = document.getElementById("hide-cpassword");
+const passwordStrengthMessage = document.getElementById("password-strength-message");
 
 showPasswordButton.addEventListener("click", () => {
   passwordInput.type = "text";
@@ -46,23 +47,34 @@ hideCPasswordButton.addEventListener("click", () => {
           switch (result.score) {
             case 0:
               strengthIndicator.innerHTML = "Very Weak";
+              passwordStrengthMeter.style.display="block";
               passwordStrengthMeter.style.backgroundColor = "red";
+               passwordStrengthMessage.innerHTML = "Very Weak Password";
+               passwordStrengthMessage.style.color = "red";
               break;
             case 1:
               strengthIndicator.innerHTML = "Weak";
              passwordStrengthMeter.style.backgroundColor = "orange";
+               passwordStrengthMessage.innerHTML = "Weak Password";
+               passwordStrengthMessage.style.color = "orange";
               break;
             case 2:
               strengthIndicator.innerHTML = "Fair";
               passwordStrengthMeter.style.backgroundColor = "yellow";
+                passwordStrengthMessage.innerHTML = "Fair Password";
+                passwordStrengthMessage.style.color = "yellow";
               break;
             case 3:
               strengthIndicator.innerHTML = "Strong";
              passwordStrengthMeter.style.backgroundColor = "green";
+               passwordStrengthMessage.innerHTML = "Strong Password";
+               passwordStrengthMessage.style.color = "green";
               break;
             case 4:
               strengthIndicator.innerHTML = "Very Strong";
              passwordStrengthMeter.style.backgroundColor = "darkgreen";
+               passwordStrengthMessage.innerHTML = "Very Strong Password";
+               passwordStrengthMessage.style.color = "darkgreen";
               break;
             default:
               strengthIndicator.innerHTML = "";
@@ -76,6 +88,12 @@ hideCPasswordButton.addEventListener("click", () => {
             "aria-valuenow",
             passwordStrengthScore * 20
           ); // Each score is worth 20
+
+           if (result.score >= 0) {
+             passwordStrengthMessage.style.display = "block";
+           } else {
+             passwordStrengthMessage.style.display = "none";
+           }
         }
 
 let cnt = 0;
