@@ -22,10 +22,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/solid.min.cs
  href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap"
  rel="stylesheet"
  />
-<link href="../../public/css/partial.css" rel="stylesheet" />
+<link href="/css/partial.css" rel="stylesheet" />
 <!-- <link rel="stylesheet" href="/CP-Grind/public/css/partial.css">  -->
 <!-- <link rel="stylesheet" href="/CP-Grind/public/css/login.css"> -->
-<link rel="stylesheet" href="../../public/css/login.css" />
+<link rel="stylesheet" href="/css/login.css" />
   </head>
   <body>
 <div class="main_container">
@@ -108,12 +108,12 @@ style="
 border: 1px solid #141c1f;
 background-color: rgba(15, 15, 15, 0.7);
 "
-onkeyup="checkPasswordStrength()"
 />
 <button
 type="button"
 class="btn btn-secondary"
 id="show-password"
+onclick="showPass()"
 >
 <i class="far fa-eye" id="togglePassword"></i>
 </button>
@@ -122,6 +122,7 @@ type="button"
 class="btn btn-secondary"
 id="hide-password"
 style="display: none"
+onclick="hidePass()"
 >
 Hide
 </button>
@@ -166,6 +167,7 @@ background-color: rgba(15, 15, 15, 0.7);
 type="button"
 class="btn btn-secondary"
 id="show-cpassword"
+onclick="showCPass()"
 >
 <i class="far fa-eye" id="togglePassword"></i>
 </button>
@@ -174,6 +176,7 @@ type="button"
 class="btn btn-secondary"
 id="hide-cpassword"
 style="display: none"
+onclick="hideCPass()"
 >
 Hide
 </button>
@@ -190,12 +193,12 @@ Sign In
 </div>
 <div class="right_part">
           <!-- <img src="/assets/img1.png" alt="" srcset=""> -->
-<img src="../../public/assets/img1.png" alt="" srcset="" />
+<img src="/assets/img1.png" alt="" srcset="" />
 </div>
 </div>
 <div id="sign_in" class="center-block">
 <div class="left_part">
-<img src="../../public/assets/img2.png" alt="" srcset=""/>
+<img src="/assets/img2.png" alt="" srcset=""/>
 </div>
 <div class="right_part">
 <br />
@@ -243,6 +246,6 @@ Sign Up
 </div>
 </div>
     <!-- <script src="/CP-Grind/public/js/login.js"></script> -->
-<script src="../../public/js/login.js"></script>
+<script src="/js/login.js"></script>
 </body>
 </html>
