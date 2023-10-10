@@ -3,7 +3,6 @@ package controllers
 import (
 	"html/template"
 	"time"
-
 	"github.com/dhanrajchaurasia/CP-GRIND/initializers"
 	"github.com/dhanrajchaurasia/CP-GRIND/models"
 	"github.com/gofiber/fiber/v2"
@@ -38,11 +37,13 @@ func Signup(c *fiber.Ctx) error {
 	email := c.FormValue("email")
 	pass := c.FormValue("password")
 	cpass := c.FormValue("cpassword")
+	// Check if password and confirm password match
 	if pass != cpass {
 		return c.Render("home/login", fiber.Map{
 			"Message": "Password didn't match!",
 		})
 	}
+
 	user := models.User{
 		FirstName:  fname,
 		SecondName: lname,
