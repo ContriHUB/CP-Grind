@@ -51,3 +51,12 @@ func IsValidToken(token string) bool {
 	DB.Raw("SELECT auth_token FROM users WHERE auth_token = $1", token).Scan(&tokens)
 	return len(tokens) > 0
 }
+
+func CreateNewProfile(profile models.Profile) error {
+	var Profiles []models.Profile
+	DB.Raw("SELECT * FROM profiles WHERE handle = $1", profile.Handle).Scan(&Profiles)
+	if len(Profiles) > 0 {
+		return errors.New("Username Already Exists!")
+	}
+	return DB.Create(&profile).Error
+}
