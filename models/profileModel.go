@@ -12,3 +12,10 @@ type Profile struct {
 	MaxRank string
 	MaxRating float64
 }
+
+type ATProfile struct {
+	gorm.Model
+	Handle  string
+	Rank float64
+	Sumbissions float64
+}

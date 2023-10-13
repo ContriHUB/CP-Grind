@@ -60,3 +60,12 @@ func CreateNewProfile(profile models.Profile) error {
 	}
 	return DB.Create(&profile).Error
 }
+
+func AddATProfile(atprofile models.ATProfile) error {
+	var ATProfiles []models.ATProfile
+	DB.Raw("SELECT * FROM at_profiles WHERE handle = $1", atprofile.Handle).Scan(&ATProfiles)
+	if len(ATProfiles) > 0 {
+		return errors.New("Username Already Exists!")
+	}
+	return DB.Create(&atprofile).Error
+}

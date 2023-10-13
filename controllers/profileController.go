@@ -8,10 +8,6 @@ import (
 	"time"
 	"html/template"
 	"github.com/gofiber/fiber/v2"
-	"log"
-
-	"github.com/PuerkitoBio/goquery"
-
 	"github.com/dhanrajchaurasia/CP-GRIND/initializers"
 	"github.com/dhanrajchaurasia/CP-GRIND/models"
 )
@@ -155,77 +151,56 @@ func GetCodeforces(c *fiber.Ctx) error {
 
 
 func GetAtcoderProfile(c *fiber.Ctx) error {
-	url := fmt.Sprintf("https://atcoder.jp/users/%s", c.FormValue("at-handle"))
+	url := fmt.Sprintf("https://kenkoooo.com/atcoder/atcoder-api/v3/user/ac_rank?user=%v", c.FormValue("cf-handle"))
 	response, err := http.Get(url)
 	htmlBody := "Could not get the data!"
-	// c.Cookie(&fiber.Cookie{Name: "message", Value: "", Expires: time.Now()})
-	// if err != nil {
-	// 	c.Cookie(&fiber.Cookie{
-	// 		Name:  "cfProfile",
-	// 		Value: htmlBody,
-	// 	})
-	// 	c.Cookie(&fiber.Cookie{
-	// 		Name:  "message",
-	// 		Value: err.Error(),
-	// 	})
-	// 	return c.Redirect("/profile")
-	// }
-	// defer response.Body.Close()
-	// jsonData, _ := io.ReadAll(response.Body)
-	// var data map[string]interface{}
-	// err = json.Unmarshal(jsonData, &data)
-	// if err != nil {
-	// 	c.Cookie(&fiber.Cookie{
-	// 		Name:  "cfProfile",
-	// 		Value: htmlBody,
-	// 	})
-	// 	c.Cookie(&fiber.Cookie{
-	// 		Name:  "message",
-	// 		Value: err.Error(),
-	// 	})
-	// 	return c.Redirect("/profile")
-	// }
+	c.Cookie(&fiber.Cookie{Name: "message", Value: "", Expires: time.Now()})
 	if err != nil {
-				log.Fatal(err)
-			}
-			defer response.Body.Close()
-	doc, err := goquery.NewDocumentFromReader(response.Body)
-	if err != nil {
-		log.Fatal(err)
+		c.Cookie(&fiber.Cookie{
+			Name:  "cfProfile",
+			Value: htmlBody,
+		})
+		c.Cookie(&fiber.Cookie{
+			Name:  "message",
+			Value: err.Error(),
+		})
+		return c.Redirect("/profile")
 	}
-	rank := doc.Find("#main-container > div.row > div.col-md-9.col-sm-12 > table > tbody > tr:nth-child(1) > td").Text()
-	ratingText := doc.Find("#main-container > div.row > div.col-md-9.col-sm-12 > table > tbody > tr:nth-child(3) > td > span.bold").Text()
-	htmlBody = fmt.Sprintf("Rank: %s<br>Rating: %s", rank, ratingText)
+	defer response.Body.Close()
+	jsonData, _ := io.ReadAll(response.Body)
+	var data map[string]interface{}
+	err = json.Unmarshal(jsonData, &data)
+	if err != nil {
+		c.Cookie(&fiber.Cookie{
+			Name:  "cfProfile",
+			Value: htmlBody,
+		})
+		c.Cookie(&fiber.Cookie{
+			Name:  "message",
+			Value: err.Error(),
+		})
+		return c.Redirect("/profile")
+	}
+	// result := data["result"].([]interface{})
+	if len(data) > 0 {
+		rank := data["rank"].(float64)
+		Handle := c.FormValue("cf-handle")
+		count := data["count"].(float64)
+		htmlBody = fmt.Sprintf("CF Rank: %v<br>Sumbissions: %v<br> %v", int(rank), int(count), Handle)
+
+		//database
+		atprofile := models.ATProfile{
+			Handle: Handle,
+			Rank: rank,
+			Sumbissions: count,
+		}
+		initializers.AddATProfile(atprofile)
+	}
+
+
 	c.Cookie(&fiber.Cookie{
 		Name:  "cfProfile",
 		Value: htmlBody,
 	})
 	return c.Redirect("/profile")
 }
-
-
-// func GetAtcoderProfile() {
-// 	// Replace "username" with the username of the AtCoder user you want to scrape.
-// 	username := "your_target_username"
-
-// 	// Make an HTTP GET request to the user's profile page.
-// 	url := fmt.Sprintf("https://atcoder.jp/users/%s", username)
-// 	res, err := http.Get(url)
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-// 	defer res.Body.Close()
-
-// 	// Parse the HTML response.
-// 	doc, err := goquery.NewDocumentFromReader(res.Body)
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-
-// 	// Extract user information.
-// 	usernameText := doc.Find(".username").Text()
-// 	ratingText := doc.Find(".user-green").Text()
-
-// 	fmt.Printf("Username: %s\n", usernameText)
-// 	fmt.Printf("Rating: %s\n", ratingText)
-// }

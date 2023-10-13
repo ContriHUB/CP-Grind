@@ -17,6 +17,7 @@ func init() {
 	initializers.ConnectionToDB()
 	initializers.SyncDB()
 	initializers.SyncDB2()
+	initializers.SyncDB3()
 }
 
 var Engine = html.New("./views", ".html")
