@@ -11,6 +11,7 @@ type Profile struct {
 	Rating float64
 	MaxRank string
 	MaxRating float64
+	Email string
 }
 
 type ATProfile struct {
@@ -18,4 +19,5 @@ type ATProfile struct {
 	Handle  string
 	Rank float64
 	Sumbissions float64
+	Email string
 }

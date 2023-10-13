@@ -58,6 +58,10 @@ func CreateNewProfile(profile models.Profile) error {
 	if len(Profiles) > 0 {
 		return errors.New("Username Already Exists!")
 	}
+	DB.Raw("SELECT * FROM profiles WHERE email = $1", profile.Email).Scan(&Profiles)
+	if len(Profiles) > 0 {
+		return errors.New("User Already Exists!")
+	}
 	return DB.Create(&profile).Error
 }
 
@@ -66,6 +70,10 @@ func AddATProfile(atprofile models.ATProfile) error {
 	DB.Raw("SELECT * FROM at_profiles WHERE handle = $1", atprofile.Handle).Scan(&ATProfiles)
 	if len(ATProfiles) > 0 {
 		return errors.New("Username Already Exists!")
+	}
+	DB.Raw("SELECT * FROM at_profiles WHERE email = $1", atprofile.Email).Scan(&ATProfiles)
+	if len(ATProfiles) > 0 {
+		return errors.New("User Already Exists!")
 	}
 	return DB.Create(&atprofile).Error
 }

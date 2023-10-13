@@ -49,40 +49,87 @@
       <form action="/logout" class="text-center" method="POST">
         <button type="submit" class="btn btn-outline-danger">Log Out</button>
       </form>
-      <form action="/codeforces" class="inputs" method="POST">
-        <div class="row text-center">
-          <input
-            type="text"
-            class="form-control"
-            name="cf-handle"
-            placeholder="Codeforces Handle"
-            required
-            style="
-              border: 1px solid #141c1f;
-              background-color: rgba(15, 15, 15, 0.7);
-            "
-          />
-          <button type="submit" class="btn btn-outline-primary">Submit</button>
+      <div style="display: flex; gap: 300px">
+        <div style="flex-direction: column; margin-left: 307px">
+          <h1>Codeforces</h1>
+          <form action="/codeforces" class="inputs" method="POST">
+            <div class="row text-center">
+              <input
+                type="text"
+                class="form-control"
+                name="cf-handle"
+                placeholder="Codeforces Handle"
+                required
+                style="
+                  border: 1px solid #141c1f;
+                  background-color: rgba(15, 15, 15, 0.7);
+                "
+              />
+              <input
+                type="text"
+                class="form-control"
+                name="cf-email"
+                placeholder="Codeforces Handle"
+                required
+                style="
+                  border: 1px solid #141c1f;
+                  background-color: rgba(15, 15, 15, 0.7);
+                "
+              />
+              <button type="submit" class="btn btn-outline-primary">
+                Submit
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
-      <form action="/atcoder" class="inputs" method="POST">
-        <div class="row text-center">
-          <input
-            type="text"
-            class="form-control"
-            name="cf-handle"
-            placeholder="Atcoder Handle"
-            required
-            style="
-              border: 1px solid #141c1f;
-              background-color: rgba(15, 15, 15, 0.7);
-            "
-          />
-          <button type="submit" class="btn btn-outline-primary">Submit</button>
+        <div style="flex-direction: column">
+          <h1>Atcoder</h1>
+          <form action="/atcoder" class="inputs" method="POST">
+            <div class="row text-center">
+              <input
+                type="text"
+                class="form-control"
+                name="cf-handle"
+                placeholder="Atcoder Handle"
+                required
+                style="
+                  border: 1px solid #141c1f;
+                  background-color: rgba(15, 15, 15, 0.7);
+                "
+              />
+              <input
+                type="text"
+                class="form-control"
+                name="at-email"
+                placeholder="Atcoder Handle"
+                required
+                style="
+                  border: 1px solid #141c1f;
+                  background-color: rgba(15, 15, 15, 0.7);
+                "
+              />
+              <button type="submit" class="btn btn-outline-primary">
+                Submit
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
       <div class="box">
-        <h1>{{ .CF_Profile }}</h1>
+        <hr width="100%" color="green" size="20px" />
+        <div
+          style="
+            width: 800px;
+            border: 15px solid green;
+            padding: 50px;
+            margin: 20px;
+            margin: 0 auto;
+            color: white;
+            background-color: rgba(39, 196, 28, 0.5);
+          "
+        >
+          <h1>{{ .CF_Profile }}</h1>
+        </div>
       </div>
     </div>
   </body>

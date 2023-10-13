@@ -10,6 +10,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/dhanrajchaurasia/CP-GRIND/initializers"
 	"github.com/dhanrajchaurasia/CP-GRIND/models"
+    "github.com/enescakir/emoji"
 )
 
 // func UserProfile(c *fiber.Ctx) error {
@@ -117,7 +118,7 @@ func GetCodeforces(c *fiber.Ctx) error {
 		friendCount := user["friendOfCount"].(float64)
 		maxRating := user["maxRating"].(float64)
 		maxRank := user["maxRank"].(string)
-		htmlBody = fmt.Sprintf("CF Rank: %v<br>CF Rating: %v<br>Contributions: %v<br>Last online: %v<br>Friends: %v<br>Max Rating: %v<br>Max Rank: %v", rank, int(rating), int(contributions), int(lastOnline), int(friendCount), int(maxRating), maxRank)
+		htmlBody = fmt.Sprintf("%v<br>%v CF Rank: %v<br>%v CF Rating: %v<br>%v Contributions: %v<br>Last online: %v<br>%v Friends: %v<br>%v Max Rating: %v<br>%v Max Rank: %v", Handle, emoji.ManTechnologist, rank, emoji.SmilingFaceWithSunglasses, int(rating), emoji.Star, int(contributions), int(lastOnline/31536000),emoji.GlowingStar, int(friendCount),emoji.SportsMedal, int(maxRating), emoji.Trophy, maxRank)
 
 		//database
 		profile := models.Profile{
@@ -126,6 +127,7 @@ func GetCodeforces(c *fiber.Ctx) error {
 			Rating: rating,
 			MaxRank: maxRank,
 			MaxRating: maxRating,
+			Email: c.FormValue("cf-email"),
 		}
 		// c.Cookie(&fiber.Cookie{
 		// 	Name:  "cfProfile",
@@ -186,13 +188,14 @@ func GetAtcoderProfile(c *fiber.Ctx) error {
 		rank := data["rank"].(float64)
 		Handle := c.FormValue("cf-handle")
 		count := data["count"].(float64)
-		htmlBody = fmt.Sprintf("CF Rank: %v<br>Sumbissions: %v<br> %v", int(rank), int(count), Handle)
+		htmlBody = fmt.Sprintf("%v<br>%v AT Rank: %v<br>%v Sumbissions: %v",Handle, emoji.Trophy, int(rank),emoji.Star, int(count))
 
 		//database
 		atprofile := models.ATProfile{
 			Handle: Handle,
 			Rank: rank,
 			Sumbissions: count,
+			Email: c.FormValue("at-email"),
 		}
 		initializers.AddATProfile(atprofile)
 	}
