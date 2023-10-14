@@ -3,6 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
+	"html/template"
 	"io"
 	"net/http"
 	"time"
@@ -11,7 +12,19 @@ import (
 )
 
 func UserProfile(c *fiber.Ctx) error {
-	return c.Render("profile/index", fiber.Map{})
+	msg := c.Cookies("message")
+	cfProfile := template.HTML(c.Cookies("cfProfile"))
+	c.ClearCookie("message")
+	c.ClearCookie("cfProfile")
+	data := fiber.Map{
+		"User":       c.Cookies("username"),
+		"fname":      c.Cookies("fname"),
+		"CF_Profile": cfProfile,
+		"Message":    msg,
+	}
+	return c.Render("profile/index", fiber.Map{
+		"Data": data,
+	})
 }
 
 func GetCFProfile(c *fiber.Ctx) error {

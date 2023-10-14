@@ -28,6 +28,7 @@ func Routes() {
 	App.Get("/404", controllers.NotFound)
 	App.Get("/login", controllers.LoginPage)
 	App.Get("/grind", controllers.GrindPage)
+	App.Get("/uprofile", controllers.UserProfile)
 
 	// Post Requests
 	App.Post("/signup", controllers.Signup)
