@@ -19,26 +19,27 @@
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
     <title>Login | CP-GRIND</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" >
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin >
     <link
       href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap"
       rel="stylesheet"
     />
-    <link href="/css/partial.css" rel="stylesheet" />
-    <link rel="stylesheet" href="/css/login.css" />
+    <link href="/CP-Grind/public/css/partial.css" rel="stylesheet" >
+    <link  href="/CP-Grind/public/css/login.css" rel="stylesheet">
+    <link rel="stylesheet" href="/CP-Grind/">
   </head>
   <body>
     <div class="main_container">
       <br />
-      <h1>CP GRIND</h1>
+      <h1 style="color: white;font-size: xx-large;font-style: inherit;"><span style='font-weight : bold;'>CP-GRIND</span> </h1>
       <br />
       <!-- <p>{{.Message }}</p> -->
-      <p>Welcome to CP-GRIND</p>
+      <p><span style='font-weight: bold;font-size: x-large;''>Welcome to to CP-GRIND</span> </p>
       <div id="sign_up" class="center-block">
         <div class="left_part">
           <br />
-          <h2>Sign Up</h2>
+          <h2 style="color: black; font-style:unset;font-weight: bold;">Sign Up</h2>
           <br />
           <form
             action="/signup"
@@ -205,23 +206,23 @@
             <button type="submit" class="btn btn-outline-primary">
               Sign Up
             </button>
-          </form>
+          </form >
           Already registered?
-          <button type="button" class="btn dark_mode" onclick="toggleit();">
+          <button style="color: black;font-weight: 500;" type="button" class="btn dark_mode" onclick="toggleit();">
             Sign In
           </button>
         </div>
         <div class="right_part">
-          <img src="/assets/img1.png" alt="" srcset="" />
+          <img src="/CP-Grind/public/assets/img1.png" alt="" srcset="" />
         </div>
       </div>
       <div id="sign_in" class="center-block">
         <div class="left_part">
-          <img src="/assets/img2.png" alt="" srcset="" />
+          <img src="/CP-Grind/public/assets/img2.png" alt="" srcset="" />
         </div>
         <div class="right_part">
           <br />
-          <h2>Sign In</h2>
+          <h2 style="color: rebeccapurple;">Sign In</h2>
           <br />
           <form action="/login" class="text-center" method="POST">
             <div class="inputg">
@@ -264,6 +265,6 @@
         </div>
       </div>
     </div>
-    <script src="/js/login.js"></script>
+    <script src="/CP-Grind/public/js/login.js"></script>
   </body>
 </html>
