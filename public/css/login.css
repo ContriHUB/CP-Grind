@@ -1,15 +1,16 @@
+
 .dark_mode {
-  color: #fff;
+  color:white;
 }
 .main_container {
+  color: white;
   text-align: center;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+  height: 150vh;
+
 }
 #sign_up,
 #sign_in {
-  background-color: rgba(15, 15, 15, 0.7);
+  background-color: black (15, 15, 15, 0.7);
   position: fixed;
   border-radius: 3rem;
   left: 250px;
@@ -21,6 +22,7 @@
   display: flex;
   filter: drop-shadow(5px 5px 5px 5px rgba(0, 0, 0, 0.3));
   box-shadow: 5px 5px 5px 3px rgba(0, 0, 0, 0.3);
+  
 }
 #sign_up {
   display: flex;
@@ -64,9 +66,15 @@ input[type="password"]:required:valid {
 }
 #sign_up > .left_part {
   padding-left: 40px;
+  border-top-left-radius: inherit;
+  border-bottom-left-radius:inherit;
+  background: rgb(208, 207, 207);
 }
 #sign_in > .right_part {
   padding-right: 40px;
+  border-top-right-radius:inherit;
+  border-bottom-right-radius:inherit;
+  background: rgb(208, 207, 207);
 }
 #sign_up > .right_part {
   border-top-right-radius: inherit;
@@ -83,9 +91,10 @@ input[type="password"]:required:valid {
   width: 500px;
 }
 h1 {
-  color: #ffffff;
+  color:black;
   text-shadow: 2px 7px 5px rgba(0, 0, 0, 0.3),
     0px -4px 10px rgba(255, 255, 255, 0.3);
+    font-weight: 700;
 }
 .input-group{
     margin-left: -5px;
@@ -121,3 +130,76 @@ li{
   transform: translateX(-70%);
   max-width: 200px;
 }
+
+@media(max-width:1048px){
+  #sign_up,
+  #sign_in{
+      width : 600px;
+    }
+    #sign_up{
+      align-items : center;
+    }
+    #sign_in{
+      padding-left : 4px;
+    }
+    .input-group,.inputg{
+      width : 200px;
+      
+    }
+    #sign_up > .right_part > img{
+      width: 300px;
+      object-fit: fill;
+    }
+    #sign_in > .left_part > img{
+      width: 300px;
+      object-fit: fill;
+    }
+    
+@media(max-width:884px){
+  #sign_up,
+  #sign_in{
+      width : 400px;
+    }
+    #sign_up{
+      align-items : center;
+      padding-left: 5px;
+    }
+    #sign_in{
+      padding-left : 1px;
+    }
+    .input-group,.inputg{
+      width : 150px;
+      
+    }
+    .left_part,
+    .right_part { 
+      width:400px;
+    }
+
+  
+    #sign_up > .right_part > img{
+      width: 250px;
+      object-fit: fill;
+    }
+    #sign_in > .left_part > img{
+      width: 250px;
+      object-fit: fill;
+    }
+    .main_container{
+      padding-right: 50px;
+    }
+    .main_container > .center-block{
+      width: 400 px;
+      display: block;
+      height: 500px;
+    }
+    #sign_up > .left_part 
+    {
+      padding-left: 7px;
+    }
+        #sign_up > .right_part
+        {
+          padding-right: 7px;
+        }
+      }
+      
