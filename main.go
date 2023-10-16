@@ -16,6 +16,8 @@ func init() {
 	initializers.LoadEnvVars()
 	initializers.ConnectionToDB()
 	initializers.SyncDB()
+	initializers.SyncDB2()
+	initializers.SyncDB3()
 }
 
 var Engine = html.New("./views", ".html")
@@ -28,13 +30,15 @@ func Routes() {
 	App.Get("/404", controllers.NotFound)
 	App.Get("/login", controllers.LoginPage)
 	App.Get("/grind", controllers.GrindPage)
+	App.Get("/profile", controllers.UserProfile)
 
 	// Post Requests
 	App.Post("/signup", controllers.Signup)
 	App.Post("/login", controllers.Login)
 	App.Post("/logout", controllers.Logout)
 	App.Post("/cfProfile", controllers.GetCFProfile)
-
+	App.Post("/codeforces", controllers.GetCodeforces)
+	App.Post("/atcoder", controllers.GetAtcoderProfile)
 	// 404 Page
 	App.Use(func(c *fiber.Ctx) error {
 		return c.SendString("Page Not Found")

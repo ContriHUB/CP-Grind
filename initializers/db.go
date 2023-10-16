@@ -26,3 +26,17 @@ func SyncDB() {
 		log.Fatal("Error auto migrating the database!")
 	}
 }
+
+func SyncDB2() {
+	err := DB.AutoMigrate(&models.Profile{})
+	if err != nil {
+		log.Fatal("Error auto migrating the database!")
+	}
+}
+
+func SyncDB3() {
+	err := DB.AutoMigrate(&models.ATProfile{})
+	if err != nil {
+		log.Fatal("Error auto migrating the database!")
+	}
+}
