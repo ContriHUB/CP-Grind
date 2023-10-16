@@ -77,3 +77,33 @@ func AddATProfile(atprofile models.ATProfile) error {
 	}
 	return DB.Create(&atprofile).Error
 }
+
+func CFProfile(handle string) (models.Profile) {
+	var Profiles models.Profile
+	DB.Raw("SELECT * FROM profiles WHERE handle = $1", handle).Scan(&Profiles)
+	return Profiles
+}
+
+func IsProfilePresent(handle string) int {
+	var Profiles []models.Profile
+	DB.Raw("SELECT * FROM profiles WHERE handle = $1", handle).Scan(&Profiles)
+	if len(Profiles) > 0 {
+		return 1
+	}
+	return 0
+}
+
+func ATProfile(handle string) (models.ATProfile) {
+	var ATProfiles models.ATProfile
+	DB.Raw("SELECT * FROM at_profiles WHERE handle = $1", handle).Scan(&ATProfiles)
+	return ATProfiles
+}
+
+func IsAtProfilePresent(handle string) int {
+	var ATProfiles []models.ATProfile
+	DB.Raw("SELECT * FROM at_profiles WHERE handle = $1", handle).Scan(&ATProfiles)
+	if len(ATProfiles) > 0 {
+		return 1
+	}
+	return 0
+}

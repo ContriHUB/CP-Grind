@@ -77,9 +77,27 @@ func GetCFProfile(c *fiber.Ctx) error {
 
 
 func GetCodeforces(c *fiber.Ctx) error {
-	url := fmt.Sprintf("https://codeforces.com/api/user.info?handles=%v", c.FormValue("cf-handle"))
-	response, err := http.Get(url)
-	htmlBody := "Could not get the data!"
+	IfPresent := initializers.IsProfilePresent(c.FormValue("cf-handle"))
+	// var info models.Profile
+	// var err 
+	if IfPresent > 0 {
+		info := initializers.CFProfile(c.FormValue("cf-handle"))
+		Handle := info.Handle
+		rank := info.Rank
+		rating := info.Rating
+		maxRank := info.MaxRank
+		maxRating := info.MaxRating
+		htmlBody := fmt.Sprintf("%v<br>%v CF Rank: %v<br>%v CF Rating: %v<br>%v Max Rating: %v<br>%v Max Rank: %v", Handle, emoji.ManTechnologist, rank, emoji.SmilingFaceWithSunglasses, int(rating), emoji.SportsMedal, int(maxRating), emoji.Trophy, maxRank)
+		c.Cookie(&fiber.Cookie{
+			Name:  "cfProfile",
+			Value: htmlBody,
+		})
+		
+	}
+	if IfPresent == 0 {
+		url := fmt.Sprintf("https://codeforces.com/api/user.info?handles=%v", c.FormValue("cf-handle"))
+		response, err := http.Get(url)
+		htmlBody := "Could not get the data!"
 	c.Cookie(&fiber.Cookie{Name: "message", Value: "", Expires: time.Now()})
 	if err != nil {
 		c.Cookie(&fiber.Cookie{
@@ -146,6 +164,8 @@ func GetCodeforces(c *fiber.Ctx) error {
 		Name:  "cfProfile",
 		Value: htmlBody,
 	})
+	
+	}
 	return c.Redirect("/profile")
 }
 
@@ -153,7 +173,23 @@ func GetCodeforces(c *fiber.Ctx) error {
 
 
 func GetAtcoderProfile(c *fiber.Ctx) error {
-	url := fmt.Sprintf("https://kenkoooo.com/atcoder/atcoder-api/v3/user/ac_rank?user=%v", c.FormValue("cf-handle"))
+	IfPresent := initializers.IsAtProfilePresent(c.FormValue("cf-handle"))
+	// var info models.Profile
+	// var err 
+	if IfPresent > 0 {
+		info := initializers.ATProfile(c.FormValue("cf-handle"))
+		Handle := info.Handle
+		rank := info.Rank
+		Sumbissions := info.Sumbissions
+		htmlBody := fmt.Sprintf("%v<br>%v AT Rank: %v<br>%v Sumbissions: %v",Handle, emoji.Trophy, int(rank),emoji.Star, int(Sumbissions))
+		c.Cookie(&fiber.Cookie{
+			Name:  "cfProfile",
+			Value: htmlBody,
+		})
+		
+	}
+	if IfPresent == 0 {
+		url := fmt.Sprintf("https://kenkoooo.com/atcoder/atcoder-api/v3/user/ac_rank?user=%v", c.FormValue("cf-handle"))
 	response, err := http.Get(url)
 	htmlBody := "Could not get the data!"
 	c.Cookie(&fiber.Cookie{Name: "message", Value: "", Expires: time.Now()})
@@ -205,5 +241,6 @@ func GetAtcoderProfile(c *fiber.Ctx) error {
 		Name:  "cfProfile",
 		Value: htmlBody,
 	})
+	}
 	return c.Redirect("/profile")
 }
