@@ -67,13 +67,13 @@ input[type="password"]:required:valid {
   padding-left: 40px;
   border-top-left-radius: inherit;
   border-bottom-left-radius:inherit;
-  background: rgb(208, 207, 207);
+  background-color: rgb(177, 192, 149) ;
 }
 #sign_in > .right_part {
   padding-right: 40px;
   border-top-right-radius:inherit;
   border-bottom-right-radius:inherit;
-  background: rgb(208, 207, 207);
+  background-color: rgb(177, 192, 149) ;
 }
 #sign_up > .right_part {
   border-top-right-radius: inherit;
